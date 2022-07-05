@@ -120,25 +120,27 @@ public:
         return false;
     }
 
-    static bool deleteDiseaseCases(string locationName)
+    // delete disease case by location name
+    static bool deleteCasesByLocation(string locationName)
     {
-        transform(locationName.begin(), locationName.end(), locationName.begin(), ::toupper);
-        ifstream file(disease_cases_file);
-        string line;
-        ofstream temp("temp.csv");
-        while (getline(file, line))
+        vector<DiseaseCases> diseases = DiseaseCases::fromFile();
+        for (int i = 0; i < diseases.size(); i++)
         {
-            if (DiseaseCases::fromString(line).locationName != locationName)
+            if (diseases[i].locationName == locationName)
             {
-                temp << line << endl;
+                diseases.erase(diseases.begin() + i);
+                fstream file(disease_cases_file, ios::out);
+                for (DiseaseCases d : diseases)
+                {
+                    file << d.toString() << endl;
+                }
+                file.close();
+                cout << "Case deleted" << endl;
+                return true;
             }
         }
-        file.close();
-        temp.close();
-        remove(disease_cases_file);
-        rename("temp.csv", disease_cases_file);
-        cout << "DiseaseCases " << locationName << " deleted successfully" << endl;
-        return true;
+
+        return false;
     }
 
     // find by disease name
