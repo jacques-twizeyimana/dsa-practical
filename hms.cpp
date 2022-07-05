@@ -9,9 +9,14 @@
 
 using namespace std;
 
+bool compareLocations(Location l1, Location l2) { return l1.name < l2.name; }
+bool compareDiseases(Disease d1, Disease d2) { return d1.name < d2.name; }
+
 void listLocations()
 {
     vector<Location> locations = Location::fromFile();
+    sort(locations.begin(), locations.end(), compareLocations);
+
     for (Location location : locations)
     {
         cout << "\t" << location.name << endl;
@@ -21,6 +26,8 @@ void listLocations()
 void listDiseases()
 {
     vector<Disease> diseases = Disease::fromFile();
+    sort(diseases.begin(), diseases.end(), compareDiseases);
+
     for (Disease disease : diseases)
     {
         cout << "\t" << disease.name << endl;
