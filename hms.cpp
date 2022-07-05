@@ -1,8 +1,31 @@
 #include <iostream>
-#include <cstring>
 #include <bits/stdc++.h>
+#include <cstring>
+#include <vector>
+#include <fstream>
+#include "location.cpp"
+#include "disease.cpp"
+#include "disease-cases.cpp"
 
 using namespace std;
+
+void listLocations()
+{
+    vector<Location> locations = Location::fromFile();
+    for (Location location : locations)
+    {
+        cout << "\t" << location.name << endl;
+    }
+}
+
+void listDiseases()
+{
+    vector<Disease> diseases = Disease::fromFile();
+    for (Disease disease : diseases)
+    {
+        cout << "\t" << disease.name << endl;
+    }
+}
 
 void printHelpMenu()
 {
@@ -20,6 +43,13 @@ void printHelpMenu()
     cout << "cases <disease>\t\t\t\t: Find total cases of a given disease" << endl;
     cout << "help\t\t\t\t\t: Prints user manual" << endl;
     cout << "exit\t\t\t\t\t: Exit the program" << endl;
+}
+
+void invalidNumberOfArguments()
+{
+    cout << "* ********************************************** *" << endl;
+    cout << "*\tError: Invalid number of arguments!\t*" << endl;
+    cout << "* ********************************************** *" << endl;
 }
 
 int main(int argc, char const *argv[])
@@ -43,8 +73,10 @@ int main(int argc, char const *argv[])
 
     do
     {
-        cout << "> ";
+        cout << "Console > ";
         getline(cin, option);
+        // change option to lowercase
+        transform(option.begin(), option.end(), option.begin(), ::tolower);
 
         if (option == "help")
         {
@@ -60,12 +92,48 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            cout << "Invalid command. Type 'help' to see the list of commands." << endl;
+            // split the option into words
+            stringstream ss(option);
+            string word;
+            vector<string> words;
+            while (ss >> word)
+            {
+                words.push_back(word);
+            }
+
+            if (words.size() == 2)
+            {
+                if (words[0] == "add")
+                {
+                    Location location(words[1]);
+                    location.save();
+                }
+                else if (words[0] == "delete")
+                    Location::deleteLocation(words[1]);
+
+                else if (words[0] == "list")
+                {
+                    if (words[1] == "locations")
+                        listLocations();
+                    else if (words[1] == "diseases")
+                        listDiseases();
+                }
+            }
+            else if (words.size() == 4)
+            {
+                if (words[0] == "record")
+                {
+                    // record disease cases in a location
+                    Disease(words[2]).save();
+
+                    DiseaseCases cases(words[1], words[2], stoi(words[3]));
+                    cases.save();
+                }
+            }
+            else
+                invalidNumberOfArguments();
         }
     } while (option != "exit");
-
-    cout << "Console > ";
-    getline(cin, option);
 
     return 0;
 }

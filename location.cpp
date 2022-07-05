@@ -7,7 +7,7 @@
 using namespace std;
 
 // define constants
-#define locationsFile "locations.csv"
+#define locationsFile "./data/locations.csv"
 
 class Location
 {
