@@ -112,6 +112,8 @@ public:
         temp.close();
         remove(locationsFile);
         rename("temp.csv", locationsFile);
+
+        DiseaseCases::deleteCasesByLocation(name);
         cout << "Location " << name << " deleted successfully" << endl;
         return true;
     }

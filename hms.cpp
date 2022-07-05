@@ -148,16 +148,13 @@ int main(int argc, char const *argv[])
                     cout << "There are " << cs.cases << " cases of " << words[2] << " in " << words[1] << endl;
                 }
             }
-            else if (words.size() == 4)
+            else if (words.size() == 4 && words[0] == "record")
             {
-                if (words[0] == "record")
-                {
-                    // record disease cases in a location
-                    Disease(words[2]).save();
+                // record disease cases in a location
+                Disease(words[2]).save();
 
-                    DiseaseCases cases(words[1], words[2], stoi(words[3]));
-                    cases.save();
-                }
+                DiseaseCases cases(words[1], words[2], stoi(words[3]));
+                cases.save();
             }
             else
                 invalidNumberOfArguments();
