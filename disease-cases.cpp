@@ -141,6 +141,23 @@ public:
         return true;
     }
 
+    // find by disease name
+    static vector<DiseaseCases> findByDiseaseName(string diseaseName)
+    {
+        // transform diseaseName to uppercase
+        transform(diseaseName.begin(), diseaseName.end(), diseaseName.begin(), ::toupper);
+
+        vector<DiseaseCases> cases;
+        for (DiseaseCases disease : DiseaseCases::fromFile())
+        {
+            if (disease.diseaseName == diseaseName)
+            {
+                cases.push_back(disease);
+            }
+        }
+        return cases;
+    }
+
     // find by locationName and diseaseName
     static DiseaseCases findByLocationNameAndDiseaseName(string locationName, string diseaseName)
     {
