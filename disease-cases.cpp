@@ -101,28 +101,40 @@ public:
     // update cases of a disease given its location and disease name
     static bool updateCases(string locationName, string diseaseName, int cases)
     {
-        for (DiseaseCases disease : DiseaseCases::fromFile())
+        vector<DiseaseCases> diseaseCases = DiseaseCases::fromFile();
+        bool found = false;
+
+        for (int i = 0; i < diseaseCases.size(); i++)
         {
-            if (disease.locationName == locationName && disease.diseaseName == diseaseName)
+            if (diseaseCases[i].locationName == locationName && diseaseCases[i].diseaseName == diseaseName)
             {
-                disease.cases += cases;
-                ofstream file(disease_cases_file);
-                for (DiseaseCases d : DiseaseCases::fromFile())
-                {
-                    file << d.toString() << endl;
-                }
-                file.close();
-                cout << "Cases updated" << endl;
-                return true;
+                diseaseCases[i].cases += cases;
+                found = true;
+                break;
             }
         }
-        cout << "Case not found" << endl;
-        return false;
+
+        if (found)
+        {
+            fstream file(disease_cases_file, ios::out);
+            for (DiseaseCases diseaseCase : diseaseCases)
+            {
+                file << diseaseCase.toString() << endl;
+            }
+            file.close();
+            cout << "Cases updated" << endl;
+            return true;
+        }
+
+        return found;
     }
 
     // delete disease case by location name
     static bool deleteCasesByLocation(string locationName)
     {
+        // change location name to uppercase
+        transform(locationName.begin(), locationName.end(), locationName.begin(), ::toupper);
+
         vector<DiseaseCases> diseases = DiseaseCases::fromFile();
         for (int i = 0; i < diseases.size(); i++)
         {

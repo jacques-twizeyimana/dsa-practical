@@ -109,7 +109,10 @@ int main(int argc, char const *argv[])
                     location.save();
                 }
                 else if (words[0] == "delete")
+                {
                     Location::deleteLocation(words[1]);
+                    DiseaseCases::deleteCasesByLocation(words[1]);
+                }
 
                 else if (words[0] == "list")
                 {
