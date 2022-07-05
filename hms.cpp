@@ -125,6 +125,14 @@ int main(int argc, char const *argv[])
                 else if (words[0] == "cases")
                 {
                     // find cases of a disease in a location
+                    int totalCases = 0;
+                    vector<DiseaseCases> reported = DiseaseCases::findByDiseaseName(words[1]);
+                    for (DiseaseCases diseaseCases : reported)
+                    {
+                        totalCases += diseaseCases.cases;
+                    }
+
+                    cout << "Total cases of " << words[1] << ": " << totalCases << endl;
                 }
             }
             else if (words.size() == 3)
