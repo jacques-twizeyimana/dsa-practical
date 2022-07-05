@@ -121,6 +121,11 @@ int main(int argc, char const *argv[])
                 else if (words[0] == "where")
                 {
                     // find where a disease exists
+                    vector<DiseaseCases> diseaseCases = DiseaseCases::findByDiseaseName(words[1]);
+                    for (DiseaseCases diseaseCase : diseaseCases)
+                    {
+                        cout << "\t" << diseaseCase.locationName << " : " << diseaseCase.cases << endl;
+                    }
                 }
                 else if (words[0] == "cases")
                 {
