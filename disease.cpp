@@ -84,14 +84,14 @@ public:
         // check if this disease already exists
         if (Disease::exists(this->name))
         {
-            cout << "Disease already exists." << endl;
+            // cout << "Disease already exists." << endl;
             return false;
         }
 
         ofstream file(diseasesFile, ios::app);
         file << toString() << endl;
         file.close();
-        cout << "Disease " << name << " added successfully" << endl;
+        // cout << "Disease " << name << " added successfully" << endl;
         return true;
     }
 
