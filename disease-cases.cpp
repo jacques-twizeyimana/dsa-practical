@@ -17,7 +17,10 @@ public:
     string diseaseName;
     int cases;
 
-    DiseaseCases() {}
+    DiseaseCases()
+    {
+        this->cases = 0;
+    }
 
     DiseaseCases(string locationName, string diseaseName, int cases)
     {
@@ -141,6 +144,10 @@ public:
     // find by locationName and diseaseName
     static DiseaseCases findByLocationNameAndDiseaseName(string locationName, string diseaseName)
     {
+        // transform locationName and diseaseName to uppercase
+        transform(locationName.begin(), locationName.end(), locationName.begin(), ::toupper);
+        transform(diseaseName.begin(), diseaseName.end(), diseaseName.begin(), ::toupper);
+
         for (DiseaseCases disease : DiseaseCases::fromFile())
         {
             if (disease.locationName == locationName && disease.diseaseName == diseaseName)

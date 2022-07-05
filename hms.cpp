@@ -118,6 +118,22 @@ int main(int argc, char const *argv[])
                     else if (words[1] == "diseases")
                         listDiseases();
                 }
+                else if (words[0] == "where")
+                {
+                    // find where a disease exists
+                }
+                else if (words[0] == "cases")
+                {
+                    // find cases of a disease in a location
+                }
+            }
+            else if (words.size() == 3)
+            {
+                if (words[0] == "cases")
+                {
+                    DiseaseCases cs = DiseaseCases::findByLocationNameAndDiseaseName(words[1], words[2]);
+                    cout << "There are " << cs.cases << " cases of " << words[2] << " in " << words[1] << endl;
+                }
             }
             else if (words.size() == 4)
             {
