@@ -62,6 +62,8 @@ public:
 
     static bool exists(string name)
     {
+        // transform the name to uppercase
+        transform(name.begin(), name.end(), name.begin(), ::toupper);
         for (Location location : Location::fromFile())
         {
             if (location.name == name)
@@ -76,7 +78,7 @@ public:
     {
         if (this->name.empty() || !this->id)
         {
-            cout << "Invalid location name" << name << endl;
+            cout << "\tInvalid location name" << name << endl;
             return false;
         }
         transform(name.begin(), name.end(), name.begin(), ::toupper);
@@ -84,14 +86,14 @@ public:
         // check if this location already exists
         if (Location::exists(this->name))
         {
-            cout << "Location already exists." << endl;
+            cout << "\tLocation already exists." << endl;
             return false;
         }
 
         ofstream file(locationsFile, ios::app);
         file << toString() << endl;
         file.close();
-        cout << "Location " << name << " added successfully" << endl;
+        cout << "\tLocation " << name << " is successfully added" << endl;
         return true;
     }
 
@@ -113,7 +115,7 @@ public:
         remove(locationsFile);
         rename("temp.csv", locationsFile);
 
-        cout << "Location " << name << " deleted successfully" << endl;
+        cout << "\tLocation " << name << " deleted successfully" << endl;
         return true;
     }
 };

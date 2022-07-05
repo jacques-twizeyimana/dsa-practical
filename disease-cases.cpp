@@ -94,7 +94,6 @@ public:
         ofstream file(disease_cases_file, ios::app);
         file << toString() << endl;
         file.close();
-        cout << "Case saved" << endl;
         return true;
     }
 
@@ -122,7 +121,6 @@ public:
                 file << diseaseCase.toString() << endl;
             }
             file.close();
-            cout << "Cases updated" << endl;
             return true;
         }
 
@@ -147,7 +145,6 @@ public:
                     file << d.toString() << endl;
                 }
                 file.close();
-                cout << "Case deleted" << endl;
                 return true;
             }
         }
