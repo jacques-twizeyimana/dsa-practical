@@ -182,9 +182,17 @@ int main(int argc, char const *argv[])
                 // check if the location exists
                 if (Location::exists(words[1]))
                 {
-                    Disease(words[2]).save();
-                    DiseaseCases cases(words[1], words[2], stoi(words[3]));
-                    cases.save();
+                    try
+                    {
+                        int nums_cases = stoi(words[3]);
+                        Disease(words[2]).save();
+                        DiseaseCases cases(words[1], words[2], nums_cases);
+                        cases.save();
+                    }
+                    catch (const std::exception &e)
+                    {
+                        cout << "Cases must be number" << endl;
+                    }
                 }
                 else
                 {
