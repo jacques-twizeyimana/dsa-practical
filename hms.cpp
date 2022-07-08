@@ -45,9 +45,9 @@ void printHelpMenu()
     cout << " record <Location> <disease> <cases>\t: Record a disease and its cases" << endl;
     cout << " list locations\t\t\t\t: List all existing locations" << endl;
     cout << " list diseases\t\t\t\t: List all existing diseases in locations" << endl;
-    cout << " where <disease>\t\t\t\t: Find where a disease exists" << endl;
+    cout << " where <disease>\t\t\t: Find where a disease exists" << endl;
     cout << " cases <location> <disease>\t\t: Find cases of a disease in a location" << endl;
-    cout << " cases <disease>\t\t\t\t: Find total cases of a given disease" << endl;
+    cout << " cases <disease>\t\t\t: Find total cases of a given disease" << endl;
     cout << " help\t\t\t\t\t: Prints user manual" << endl;
     cout << " exit\t\t\t\t\t: Exit the program" << endl;
 }
